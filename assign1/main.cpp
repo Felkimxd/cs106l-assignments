@@ -114,18 +114,24 @@ void write_courses_offered(std::vector<Course>& all_courses) {
   }
   else
   {
+    int size = all_courses.size();
     courses_file << "Title,Number of Units,Quarter" << endl;
+    vector <Course> indexes_to_delete;
 
-    for (int i = 0; i < all_courses.size(); i++)
+    for (int i = 0; i < size; i++)
     {
       if (all_courses[i].quarter != "null")
       {
         courses_file << all_courses[i].title << "," << all_courses[i].number_of_units << "," << all_courses[i].quarter << endl;
-        delete_elem_from_vector(all_courses, all_courses[i]);
+        indexes_to_delete.push_back(all_courses[i]);
       }
-      
     }
-  
+
+    for (int i = 0; i < indexes_to_delete.size(); i++)
+    {
+      delete_elem_from_vector(all_courses, indexes_to_delete[i]);
+    }
+    
   }
 
   courses_file.close();
@@ -154,15 +160,24 @@ void write_courses_not_offered(std::vector<Course> unlisted_courses) {
   else
   {
     courses_file << "Title,Number of Units,Quarter" << endl;
+    int size = unlisted_courses.size();
+    vector <Course> indexes_to_delete;
+    
 
-    for (int i = 0; i < unlisted_courses.size(); i++)
+    for (int i = 0; i < size; i++)
     {
       if (unlisted_courses[i].quarter == "null")
       {
         courses_file <<unlisted_courses[i].title << "," <<unlisted_courses[i].number_of_units << "," <<unlisted_courses[i].quarter << endl;
-        delete_elem_from_vector(unlisted_courses,unlisted_courses[i]);
+        indexes_to_delete.push_back(unlisted_courses[i]);
       }
     }
+
+    for (int i = 0; i < indexes_to_delete.size(); i++)
+    {
+      delete_elem_from_vector(unlisted_courses, indexes_to_delete[i]);
+    }
+    
   }
 
   courses_file.close();
