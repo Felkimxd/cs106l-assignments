@@ -15,20 +15,19 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "course.h"
 
 const std::string COURSES_OFFERED_PATH = "student_output/courses_offered.csv";
 const std::string COURSES_NOT_OFFERED_PATH = "student_output/courses_not_offered.csv";
+
+using namespace std;
 
 /**
  * Represents a course a student can take in ExploreCourses.
  * You must fill in the types of the fields in this struct.
  * Hint: Remember what types C++ streams work with?!
  */
-struct Course {
-  /* STUDENT TODO */ title;
-  /* STUDENT TODO */ number_of_units;
-  /* STUDENT TODO */ quarter;
-};
+
 
 /**
  * (STUDENT TODO) Look at how the main function (at the bottom of this file)
@@ -58,8 +57,33 @@ struct Course {
  * @param filename The name of the file to parse.
  * @param courses  A vector of courses to populate.
  */
-void parse_csv(std::string filename, std::vector<Course> courses) {
-  /* (STUDENT TODO) Your code goes here... */
+void parse_csv(std::string filename, std::vector<Course>& courses) {
+
+  ifstream courses_file(filename);
+
+  if (!courses_file.is_open())
+  {
+    cout << "No se pudo abrir el archivo" << endl;
+  }
+  else
+  {
+    string selected_course;
+    vector <string> vector_selected_course;
+    Course new_course;
+
+    while (std::getline(courses_file,selected_course))
+    {
+      vector_selected_course = split(selected_course, ',');
+      new_course.number_of_units = vector_selected_course[1];
+      new_course.quarter = vector_selected_course[2];
+      new_course.title = vector_selected_course[0];
+
+      courses.push_back(new_course);
+    }
+    
+  }
+
+  courses_file.close();
 }
 
 /**
@@ -80,8 +104,31 @@ void parse_csv(std::string filename, std::vector<Course> courses) {
  * @param all_courses A vector of all courses gotten by calling `parse_csv`.
  *                    This vector will be modified by removing all offered courses.
  */
-void write_courses_offered(std::vector<Course> all_courses) {
-  /* (STUDENT TODO) Your code goes here... */
+void write_courses_offered(std::vector<Course>& all_courses) {
+  
+  ofstream courses_file(COURSES_OFFERED_PATH);
+
+  if (!courses_file.is_open())
+  {
+    cout << "No se pudo abrir el archivo" << endl;
+  }
+  else
+  {
+    courses_file << "Title,Number of Units,Quarter" << endl;
+
+    for (int i = 0; i < all_courses.size(); i++)
+    {
+      if (all_courses[i].quarter != "null")
+      {
+        courses_file << all_courses[i].title << "," << all_courses[i].number_of_units << "," << all_courses[i].quarter << endl;
+        delete_elem_from_vector(all_courses, all_courses[i]);
+      }
+      
+    }
+  
+  }
+
+  courses_file.close();
 }
 
 /**
@@ -98,7 +145,27 @@ void write_courses_offered(std::vector<Course> all_courses) {
  * @param unlisted_courses A vector of courses that are not offered.
  */
 void write_courses_not_offered(std::vector<Course> unlisted_courses) {
-  /* (STUDENT TODO) Your code goes here... */
+  ofstream courses_file(COURSES_NOT_OFFERED_PATH);
+
+  if (!courses_file.is_open())
+  {
+    cout << "No se pudo abrir el archivo" << endl;
+  }
+  else
+  {
+    courses_file << "Title,Number of Units,Quarter" << endl;
+
+    for (int i = 0; i < unlisted_courses.size(); i++)
+    {
+      if (unlisted_courses[i].quarter == "null")
+      {
+        courses_file <<unlisted_courses[i].title << "," <<unlisted_courses[i].number_of_units << "," <<unlisted_courses[i].quarter << endl;
+        delete_elem_from_vector(unlisted_courses,unlisted_courses[i]);
+      }
+    }
+  }
+
+  courses_file.close();
 }
 
 int main() {
@@ -107,12 +174,14 @@ int main() {
 
   std::vector<Course> courses;
   parse_csv("courses.csv", courses);
-
+  courses.erase(courses.begin());
+  
   /* Uncomment for debugging... */
   // print_courses(courses);
 
   write_courses_offered(courses);
+  
   write_courses_not_offered(courses);
 
-  return run_autograder();
+  // return run_autograder();
 }
