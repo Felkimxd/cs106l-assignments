@@ -46,6 +46,9 @@ run_autograder()
   }
 
   /* #### Assignment Specific Operations #### */
+
+  std::cout<<"Running autograder..."<<std::endl;
+
   auto allMatches = get_applicants("students.txt");
   auto studentMatches = find_matches(kYourName, allMatches);
   auto match = get_match(studentMatches);
