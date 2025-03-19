@@ -66,3 +66,10 @@ void Plant::setFruits(bool fruits)
 {
     this->fruits = fruits;
 }
+
+void Plant::treeLive(){
+
+    photosyntesis();
+    fallingLeaves();
+    
+}

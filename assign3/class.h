@@ -30,10 +30,10 @@ public:
     bool const getFlowersExists();
     bool const getFruitsExists();
 
-    void setName(std::string name);
-    void setSpecie(std::string specie);
+    void setName(const std::string name);
+    void setSpecie(const std::string specie);
     void setNumLeaves(int leaves);
     void setFlowers(bool flowers);
     void setFruits(bool fruits);
-
+    void treeLive();
 };

@@ -5,7 +5,9 @@ Make a Class
 ------------
 
 Q1. What’s const-correctness and why is it important?
-A1. TODO
+A1. Const-correctness consist on declare in the right way a function, varible or argument, when we declare a function like a const that means that it doesn't change nothing.
+It's important to declare functions, variables or argument that return us information class avoiding a possibility of change.
 
 Q2. Is your class const-correct? How do you know?
-A2. TODO
+A2. Yes, it is. I know because the functions that return information are using const also the input of variables 
+like name and specie have const in the function that modifies that parameter.

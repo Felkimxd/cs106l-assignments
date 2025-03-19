@@ -9,15 +9,16 @@ void sandbox() {
   // STUDENT TODO: Construct an instance of your class!
   Plant myPlant("Oak", "Quercus", 100, true, true);
   
+  // STUDENT TODO: Call a method on your class!
+  
   std::cout << "My plant is a " << myPlant.getName() << " tree." << std::endl;
   std::cout << "It has " << myPlant.getLeavesNum() << " leaves." << std::endl;
-  std::cout << "It has flowers: " << myPlant.getFlowersExists() << std::endl; 
+  std::cout << "It has flowers: " << myPlant.getFlowersExists() << std::endl;
 
-  // STUDENT TODO: Call a method on your class!
-  std::cout << "It has " << myPlant.getLeavesNum() << " leaves." << std::endl;
   myPlant.setFlowers(false);
   std::cout << "It has flowers: " << myPlant.getFlowersExists() << std::endl;
-  
-  
+
+  myPlant.treeLive();
+  std::cout << "It has " << myPlant.getLeavesNum() << " leaves." << std::endl;
 }
 
