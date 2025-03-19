@@ -12,7 +12,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-
 #include "sandbox.cpp"
 
 int run_autograder() {
@@ -57,5 +56,4 @@ int run_autograder() {
 
 int main() {
     sandbox();
-    return run_autograder();
 }

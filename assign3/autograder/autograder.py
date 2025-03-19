@@ -1,5 +1,6 @@
 from typing import Callable, List, Set, Tuple, TypeVar
 from utils import Autograder, get_declarations, install_castxml
+
 install_castxml()
 
 import os
@@ -53,7 +54,7 @@ def get_definitions(source_file: os.PathLike) -> Set[Tuple[str, str]]:
     regex = re.compile(definition_pattern)
     matches = regex.findall(content)
 
-    return matches
+    return set(matches)
 
 
 def assert_defined(decl: declarations.declarated_t):
@@ -103,9 +104,9 @@ def setup():
 
     if not os.path.isfile(sandbox_cpp_path):
         raise RuntimeError(
-            "Couldn't find '{main.cpp}'. Did you delete it from the starter code?"
+            "Couldn't find 'sandbox.cpp'. Did you delete it from the starter code?"
         )
-    
+
     decls = get_declarations(norm_path(sandbox_cpp_path))
     global_namespace = declarations.get_global_namespace(decls)
 
@@ -123,8 +124,8 @@ def setup():
         raise Exception(
             "Couldn't find a class inside of class.h. Possible reasons:\n"
             " - Did you define one?\n"
-            ' - Did you #include "class.h" inside main.cpp?\n'
-            " - Did you construct an instance of the class inside main.cpp?"
+            ' - Did you #include "class.h" inside sandbox.cpp?\n'
+            " - Did you construct an instance of the class inside sandbox.cpp?"
         )
 
     global class_decl
